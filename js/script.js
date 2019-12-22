@@ -1,6 +1,7 @@
 import * as THREE from '../vendor/three.js-master/build/three.module.js';
 import Stats from '../vendor/three.js-master/examples/jsm/libs/stats.module.js';
 import { OrbitControls } from '../vendor/three.js-master/examples/jsm/controls/OrbitControls.js';
+import { DragControls } from '../vendor/three.js-master/examples/jsm/controls/DragControls.js';
 import { GLTFLoader } from '../vendor/three.js-master/examples/jsm/loaders/GLTFLoader.js'; 
 
 const Scene = {
@@ -11,6 +12,7 @@ const Scene = {
         scene: null,
         renderer: null,
         camera: null,
+        objects: []
     },
 
     animate: () => {
@@ -40,7 +42,7 @@ const Scene = {
 
         // Création de la scène
         vars.scene = new THREE.Scene();
-        vars.scene.background = new THREE.Color(0xa0a0a0);
+        vars.scene.background = new THREE.Color(0x6ab2c7);
 
         // Création renderer
         vars.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -51,8 +53,8 @@ const Scene = {
         vars.container.appendChild(vars.renderer.domElement);
 
         // Ajout de la camera avec plusieurs paramètres
-        vars.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
-        vars.camera.position.set(-1.5, 210, 572);
+        vars.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 2000);
+        vars.camera.position.set(400, 400, 400);
 
         // Création de la lumière globale
         const lightIntensityHemisphere = 1;
@@ -66,6 +68,16 @@ const Scene = {
             './models/scene.gltf',
             function(gltf) {
                 vars.scene.add(gltf.scene);
+                vars.objects.push(gltf.scene)
+            }
+        );
+
+        let loader2 = new GLTFLoader();
+        loader2.load(
+            './models/apple/scene.gltf',
+            function(gltf) {
+                vars.scene.add(gltf.scene);
+                vars.objects.push(gltf.scene)
             }
         );
 
@@ -74,14 +86,26 @@ const Scene = {
         vars.controls.target.set(0, 0, 0);
 
         // Pour limiter les mouvements de la caméra
-        // vars.controls.minDistance = 300;
-        // vars.controls.maxDistance = 600;
-        // vars.controls.minPolarAngle = Math.PI / 4;
-        // vars.controls.maxPolarAngle = Math.PI / 2;
-        // vars.controls.minAzimuthAngle = - Math.PI / 4;
-        // vars.controls.maxAzimuthAngle = Math.PI / 4;
+        vars.controls.minDistance = 300;
+        vars.controls.maxDistance = 600;
+        vars.controls.minPolarAngle = Math.PI / 3;
+        vars.controls.maxPolarAngle = Math.PI / 3;
+        vars.controls.minAzimuthAngle = Math.PI / 4;
+        vars.controls.maxAzimuthAngle = Math.PI / 4;
 
         vars.controls.update();
+
+        // Ajout du controler draggable
+
+        var controls2 = new DragControls( vars.objects, vars.camera, vars.renderer.domElement );
+        
+        // add event listener to highlight dragged objects
+        controls2.addEventListener( 'dragstart', function ( event ) {
+            event.object.material.emissive.set( 0xaaaaaa );
+        } );
+        controls2.addEventListener( 'dragend', function ( event ) {
+            event.object.material.emissive.set( 0x000000 );
+        } );
 
         // Pour gérer le redimentionnment de la fenêtre
         window.addEventListener('resize', Scene.onWindowResize, false);
