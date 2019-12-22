@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <script type="module" src="js/script.js"></script>
+    <div id="home">
+        <div class="title">
+            <span>Welcome on</span>
+            <h1>Dreaming Room</h1>
+            <p>A three.js game where you had to move objects to create your dreaming room</p>
+            <button onclick="play()">Start to play</button>
+        </div>
+    </div>
+
+    <div id="return" onclick="home()">Home</div>
+    <div id="controls">
+        <div id="orbitControl">Space</div>
+        <div id="dragControl">Objects</div>
+    </div>
+
+    <script type="module" src="js/scene.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
