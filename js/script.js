@@ -1,6 +1,7 @@
 import * as THREE from '../vendor/three.js-master/build/three.module.js';
 import Stats from '../vendor/three.js-master/examples/jsm/libs/stats.module.js';
 import { OrbitControls } from '../vendor/three.js-master/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from '../vendor/three.js-master/examples/jsm/loaders/GLTFLoader.js'; 
 
 const Scene = {
 
@@ -54,29 +55,24 @@ const Scene = {
         vars.camera.position.set(-1.5, 210, 572);
 
         // Création de la lumière globale
-        const lightIntensityHemisphere = 0.7;
+        const lightIntensityHemisphere = 1;
         let light = new THREE.HemisphereLight(0xFFFFFF, 0x444444,lightIntensityHemisphere);
         light.position.set(0,700, 0);
         vars.scene.add(light);
 
-        // Mise en place du sol
-        let mesh = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(2000, 2000), // Le sol
-            new THREE.MeshLambertMaterial({ color: new THREE.Color(0x888888) }) // Le materiaux du sol
+        // Ajout des modèles 3D
+        let loader = new GLTFLoader();
+        loader.load(
+            './models/scene.gltf',
+            function(gltf) {
+                vars.scene.add(gltf.scene);
+            }
         );
-        mesh.rotation.x = -Math.PI / 2; // Sans rotation il s'affiche face à nous, l'angle se calcul en radiant
-        mesh.receiveShadow = false;
-        vars.scene.add(mesh);
-
-        // Helpers pour avoir des infos qu'on enlèvera après
-        let grid = new THREE.GridHelper(2000, 20, 0x000000, 0x000000);
-        grid.material.opacity = 0.2;
-        grid.material.transparent = true;
-        vars.scene.add(grid);
 
         // Ajout du controleur sur la camera
-        // vars.controls = new OrbitControls(vars.camera, vars.renderer.domElement);
-        // vars.controls.target.set(0, 0, 0);
+        vars.controls = new OrbitControls(vars.camera, vars.renderer.domElement);
+        vars.controls.target.set(0, 0, 0);
+
         // Pour limiter les mouvements de la caméra
         // vars.controls.minDistance = 300;
         // vars.controls.maxDistance = 600;
@@ -84,7 +80,8 @@ const Scene = {
         // vars.controls.maxPolarAngle = Math.PI / 2;
         // vars.controls.minAzimuthAngle = - Math.PI / 4;
         // vars.controls.maxAzimuthAngle = Math.PI / 4;
-        // vars.controls.update();
+
+        vars.controls.update();
 
         // Pour gérer le redimentionnment de la fenêtre
         window.addEventListener('resize', Scene.onWindowResize, false);
