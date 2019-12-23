@@ -1,3 +1,13 @@
+body {
+    font-family: 'Gaegu', cursive;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
 .fullscreen {
     position: absolute; top: 0; bottom: 0; left: 0; right: 0;
 }
@@ -8,22 +18,94 @@
     right: 0;
     left: 0;
     bottom: 0; 
-    background-color: #6ab2c7;
+    background-color: #f4bebe;
     z-index: 1000;
 }
 
-.title {
+#title {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
+}
 
+#title span {
+    font-size: 2rem;
+    position: relative;
+    top: 20px;
+    right: 120px;
+}
+
+h1 {
+    font-size: 5rem;
+    margin: 0 0 20px 0;
+}
+
+#link {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+    margin-bottom: 50px;
+}
+
+#credits {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0; 
+    background-color: #f4bebe;
+    z-index: 1002;
+    display: none;
+}
+#credits .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.return {
+    margin: 20px;
+    position: absolute;
+    z-index: 999;
+}
+
+.button {
+    border-radius: 100px;
+    padding: 10px;
+    border: 2px solid white;
+    background-color: none;
     color: white;
+    margin: 10px 10px 0 10px;
+}
+
+.button:hover, .button.selected {
+    background-color: white;
+    color: #f4bebe;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 #controls {
     position: absolute;
-    left: 0;
-    bottom: 0; 
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 0); 
     z-index: 999;
+    /* background-color: rgba(255, 255, 255, 1); */
+    margin-bottom: 50px;
+    padding: 20px;
+    border-radius: 3px;
+    text-align: center;
 }

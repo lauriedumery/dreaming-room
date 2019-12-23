@@ -7,21 +7,44 @@
     <title>Dreaming room - A three.js game</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Gaegu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
 </head>
 <body>
     <div id="home">
-        <div class="title">
+        <div id="title">
             <span>Welcome on</span>
             <h1>Dreaming Room</h1>
             <p>A three.js game where you had to move objects to create your dreaming room</p>
-            <button onclick="play()">Start to play</button>
+            <div class="flex">
+                <div class="pointer button" onclick="play()">Start to play</div>
+            </div>
+        </div>
+        <div id="link">
+            <div class="pointer" onclick="credits()">Credits</div>
         </div>
     </div>
 
-    <div id="return" onclick="home()">Home</div>
+    <div id="credits">
+        <div class="pointer return" onclick="home()"><i class="fas fa-arrow-left"></i> Home</div>
+        <div class="center">
+            <h2>Code</h2>
+            <p>Laurie Dumery</p>
+            <h2>3D model</h2>
+            <p><a href="https://sketchfab.com/nlsinh">Sing Nguyen</a></p>
+        </div>
+    </div>
+
+    <div class="pointer return" onclick="home()"><i class="fas fa-arrow-left"></i> Home</div>
+
     <div id="controls">
-        <div id="orbitControl">Space</div>
-        <div id="dragControl">Objects</div>
+        <div>Place the objects at the left wherever you want in the bedroom.</div>
+        <div class="flex">
+            <div class="pointer button" id="orbitControl"><i class="fas fa-arrows-alt"></i> Click here to move in the space</div>
+            <div class="pointer button" id="dragControl"><i class="fas fa-chair"></i> Click here to move the objects</div>
+        </div>
+        
     </div>
 
     <script type="module" src="js/scene.js"></script>
